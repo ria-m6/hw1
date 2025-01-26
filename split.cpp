@@ -14,44 +14,47 @@ the function below should be the only one in this file.
 #include <cstddef>
 
 /* Add a prototype for a helper function here if you need */
+void traverse(Node*& head, Node* newNode);
 
 void split(Node*& in, Node*& odds, Node*& evens)
 {
   /* Add code here */
 // WRITE YOUR CODE HERE
-    if(in == nullptr){
-        return;
-    }
-    Node* newNode = new Node(in->value, nullptr);
-    
-    if(in->value % 2 == 0){
-        if(evens == nullptr){
-            evens = newNode;
-        } else {
-            Node* temp = evens;
-            while(temp->next != nullptr){
-                temp = temp->next;
-            }
-            temp->next = newNode;
-        }
-        
-    } else{
-        if(odds == nullptr){
-            odds = newNode;
-        } else {
-            Node* temp = odds;
-            while(temp->next != nullptr){
-                temp = temp->next;
-            }
-            temp->next = newNode;
-        }
-    
-        
-    }
-    split(in->next, odds, evens);
-    
-    
+
+  //if input is NULL, end
+  if(in == nullptr){ 
+    return;
+  }
+
+  //create pointer to new node with in's value
+  Node* newNode = new Node(in->value, nullptr);
+  
+  //checking if even or odd
+  if(in->value % 2 == 0){
+      traverse(evens, newNode);
+  } else{
+    traverse(odds, newNode);
+  }
+
+  //moving to the next item in list
+  Node* temp = in;
+  in = in->next;
+  delete temp;
+
+  //recrursively calling
+  split(in, odds, evens); 
     
 }
 
 /* If you needed a helper function, write it here */
+//added a helper function to traverse linked list
+void traverse(Node*& head, Node* newNode){
+  if(head == nullptr){ //list is empty
+    head = newNode;
+
+  } else{
+    //moves through the list until end is found
+    traverse(head->next, newNode); 
+
+  }
+}
