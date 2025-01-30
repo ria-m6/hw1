@@ -59,20 +59,24 @@ void ULListStr::push_back(const std::string& val){ //DONE!
  *   - MUST RUN in O(1)
  */
 void ULListStr::pop_back(){ //DONE
+  if(empty()){
+    return;
+  }
     tail_->last--; //decrementing last index
     
     //if there's only 1 element in list
     if(tail_->first == tail_ -> last){
         //if the list has more than 1 node
-        if(tail_->prev != NULL){
-            Item *temp = tail_;
+        Item *temp = tail_;
+        if(tail_->prev != nullptr){
             tail_ = tail_->prev;
-            tail_->next = NULL;
-            delete temp;
+            tail_->next = nullptr;
+            
         } else{ //only 1 node in list
-            head_ = NULL;
-            tail_ = NULL;
+            head_ = nullptr;
+            tail_ = nullptr;
         }
+        delete temp;
     }
     
     //if list is empty, reset
@@ -101,15 +105,15 @@ void ULListStr::push_front(const std::string& val){
         head_->first = 0;
         head_->last = 1;
         size_++;
-    }else if(head_->first != 0){ //if head is full, create a new Node
+    }else if(head_->first == 0){ //if head is full, create a new Node
         Item *temp = new Item;
         
         temp->val[ARRSIZE-1] = val;
-        tail_->first = ARRSIZE-1;
-        tail_->last = ARRSIZE;
+        temp->first = ARRSIZE-1;
+        temp->last = ARRSIZE;
         
-        head_->prev = temp;
         temp->next = head_;
+        head_->prev = temp;
         head_ = temp;
         
         size_++;
@@ -126,30 +130,35 @@ void ULListStr::push_front(const std::string& val){
  *   - MUST RUN in O(1)
  */
 void ULListStr::pop_front(){
-    head_->first--; //decrementing first index
+
+    if(empty()){
+      return;
+    }
+
+    head_->first++; //decrementing first index
     
     //if there's only 1 element in list
     if(head_->first == head_ -> last){
         //if the list has more than 1 node
-        if(head_->next != NULL){
-            Item *temp = head_;
-            head_ = head_->next;
-            head_->prev = NULL;
-            delete temp;
+        Item *temp = head_;
+        head_ = head_->next;
+
+        if(head_!= nullptr){
+            head_->prev = nullptr;
+            
         } else{ //only 1 node in list
-            head_ = NULL;
-            tail_ = NULL;
+            tail_ = nullptr;
         }
+        delete temp;
     }
-    
     //if list is empty, reset
-    if(empty()){ //if there are no values left
-        head_ = NULL;
-        tail_ = NULL;
-        size_=0;
-    } else{
-        size_--; //decrease size
-    }
+    
+    size_--; //decrease size
+
+    // if(empty()){
+    //   head_ = NULL;
+    //   tail_=NULL;
+    // }
 }
 
 /**
@@ -182,7 +191,7 @@ std::string* ULListStr::getValAtLoc(size_t loc) const{
     Item* temp = head_;
     size_t index = loc;
     //traverse list
-    while(temp != NULL){
+    while(temp != nullptr){
         //see if index is within range of current node
         if(index < (temp->last)){
             //if so return value in array
