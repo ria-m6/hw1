@@ -113,6 +113,7 @@ testing::AssertionResult checkListContent(ULListStr *const list, std::vector<std
 		{
 			failureMessage << "Expected value at index " << index << " was " << expectedValues[index] << ", but element was actually " << list->get(index) << std::endl;
 			contentMismatch = true;
+      //problem with list->get(index) -> this isn't printing in the error message, might be a rpobelm with 
 		}
 	}
 

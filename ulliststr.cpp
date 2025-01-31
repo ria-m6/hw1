@@ -30,7 +30,7 @@ size_t ULListStr::size() const
  *   - MUST RUN in O(1)
  */
 void ULListStr::push_back(const std::string& val){ //DONE!
-    if(this->empty()){ //If the node is completely empty create a new Item
+    if(this->empty()){ //If the node is completely empty create a new Item with val at the begining 
         head_ = new Item;
         tail_ = head_;
         head_ -> val[0] = val;
@@ -98,14 +98,14 @@ void ULListStr::pop_back(){ //DONE
  */
 void ULListStr::push_front(const std::string& val){
     //case if there is no node
-    if(empty()){ //If the node is completely empty create a new Item
+    if(empty()){ //If the node is completely empty create a new Item with the val at the end
         head_ = new Item;
         tail_ = head_;
-        head_ -> val[0] = val;
-        head_->first = 0;
-        head_->last = 1;
+        head_ -> val[ARRSIZE-1] = val; //changed from beginning to end
+        head_->first = ARRSIZE-1;
+        head_->last = ARRSIZE;
         size_++;
-    }else if(head_->first == 0){ //if head is full, create a new Node
+    }else if(head_->first == 0){ //if head is full, create a new Node and put the value at the end of the head
         Item *temp = new Item;
         
         temp->val[ARRSIZE-1] = val;
@@ -117,7 +117,7 @@ void ULListStr::push_front(const std::string& val){
         head_ = temp;
         
         size_++;
-    } else{ //if there is space at the beginning of head, add to it
+    } else{ //if there is space at the beginning of first, head, add to it
         head_->first--;
         head_->val[head_->first] = val;
         size_++;
@@ -142,14 +142,15 @@ void ULListStr::pop_front(){
         //if the list has more than 1 node
         Item *temp = head_;
         head_ = head_->next;
-
+        
+        delete temp;
         if(head_!= nullptr){
             head_->prev = nullptr;
             
         } else{ //only 1 node in list
             tail_ = nullptr;
         }
-        delete temp;
+        
     }
     //if list is empty, reset
     
@@ -193,9 +194,9 @@ std::string* ULListStr::getValAtLoc(size_t loc) const{
     //traverse list
     while(temp != nullptr){
         //see if index is within range of current node
-        if(index < (temp->last)){
+        if(index < (temp->last - temp->first)){
             //if so return value in array
-            return &((temp->val)[index-(temp->first)]);
+            return &((temp->val)[index+(temp->first)]);
         }
         //If not, update index and move to next node
        index -= ((temp->last)-(temp->first));

@@ -23,30 +23,41 @@ bool checkListContent(ULListStr* list, const std::vector<std::string>& expected)
 int main() {
 
   ULListStr dat;
-  dat.push_front("one");
-    dat.push_front("two");
-    dat.push_front("three");
 
-    std::cout << "Size after pushing three elements: " << dat.size() << std::endl;  // Expected: 3
-    std::cout << "Front element: " << dat.front() << std::endl; // Expected: "three"
+  //testing ListInsert.BackThenFront 
+  dat.push_back("bob");
+	dat.push_front("fred");
 
-    // Pop front and check state
-    dat.pop_front();
-    std::cout << "After 1 pop, front element: " << dat.front() << std::endl; // Expected: "two"
-    std::cout << "Size: " << dat.size() << std::endl;  // Expected: 2
+  std::cout << "Size after pushing two elements: " << dat.size() << std::endl;  // Expected: 2
+  std::cout << "Front element: " << dat.front() << std::endl; // Expected: "
+  std::cout << "Back element: " << dat.back() << std::endl;
 
-    dat.pop_front();
-    std::cout << "After 2 pops, front element: " << dat.front() << std::endl; // Expected: "one"
-    std::cout << "Size: " << dat.size() << std::endl;  // Expected: 1
+  // dat.push_front("1536");
+  //   dat.push_front("1024");
+  //   dat.push_front("768");
+    //"768", "1024", "1536"
 
-    dat.pop_front();
-    std::cout << "After 3 pops, is list empty? " << (dat.empty() ? "Yes" : "No") << std::endl; // Expected: Yes
-    std::cout << "Size: " << dat.size() << std::endl;  // Expected: 0
+    // std::cout << "Size after pushing three elements: " << dat.size() << std::endl;  // Expected: 3
+    // std::cout << "Front element: " << dat.front() << std::endl; // Expected: "three"
+    // std::cout << "Back element: " << dat.back() << std::endl;
+
+    // // Pop front and check state
+    // dat.pop_front();
+    // std::cout << "After 1 pop, front element: " << dat.front() << std::endl; // Expected: "two"
+    // std::cout << "Size: " << dat.size() << std::endl;  // Expected: 2
+
+    // dat.pop_front();
+    // std::cout << "After 2 pops, front element: " << dat.front() << std::endl; // Expected: "one"
+    // std::cout << "Size: " << dat.size() << std::endl;  // Expected: 1
+
+    // dat.pop_front();
+    // std::cout << "After 3 pops, is list empty? " << (dat.empty() ? "Yes" : "No") << std::endl; // Expected: Yes
+    // std::cout << "Size: " << dat.size() << std::endl;  // Expected: 0
 
     // Test 3: Ensure we can add again after clearing
-    dat.push_front("new");
-    std::cout << "After adding 'new', front element: " << dat.front() << std::endl; // Expected: "new"
-    std::cout << "Size: " << dat.size() << std::endl;  
+    // dat.push_front("new");
+    // std::cout << "After adding 'new', front element: " << dat.front() << std::endl; // Expected: "new"
+    // std::cout << "Size: " << dat.size() << std::endl;  
 
 
     // // Create a vector with test values
