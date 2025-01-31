@@ -37,7 +37,7 @@ void ULListStr::push_back(const std::string& val){ //DONE!
         head_->first = 0;
         head_->last = 1;
         size_++;
-    }else if(tail_->last == ARRSIZE){ //if tail is full, create a new Node
+    }else if(tail_->last == ARRSIZE){ //if tail is full, create a new Node with val at the beginning
         Item *temp = new Item;
         tail_->next = temp;
         temp->prev = tail_;
@@ -152,21 +152,15 @@ void ULListStr::pop_front(){
         }
         
     }
-    //if list is empty, reset
-    
     size_--; //decrease size
 
-    // if(empty()){
-    //   head_ = NULL;
-    //   tail_=NULL;
-    // }
 }
 
 /**
  * Returns a const reference to the back element
  *   - MUST RUN in O(1)
  */
-std::string const & ULListStr::back() const{ //DONEEE
+std::string const & ULListStr::back() const{ //accessing tail's last value
     return tail_->val[tail_->last-1];
 }
 
@@ -174,7 +168,7 @@ std::string const & ULListStr::back() const{ //DONEEE
  * Returns a const reference to the front element
  *   - MUST RUN in O(1) DONE
  */
-std::string const & ULListStr::front() const{ //DONEEE
+std::string const & ULListStr::front() const{ //Accessing head's first value
     //get the first value in the head
     return head_->val[head_->first];
 }
